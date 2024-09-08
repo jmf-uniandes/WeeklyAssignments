@@ -1,0 +1,2 @@
+Contenido de Frecuente 1 - P1
+En base al ejercicio desarrollado en clase, usted debe subir el enlace de Github o Gitlab con la información sobre el CRUD de Clientes y Productos
