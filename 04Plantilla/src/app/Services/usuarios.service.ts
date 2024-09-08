@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class UsuariosService {
   private loggedIn = new BehaviorSubject<boolean>(false);
-  apiurl = 'http://localhost/sexto/Proyectos/03MVC/controllers/usuarios.controller.php?op=';
+  apiurl = 'http://localhost/UniAndes/WeeklyAssignments/03MVC/controllers/usuarios.controller.php?op=';
   constructor(
     private lector: HttpClient,
     private navegacion: Router
