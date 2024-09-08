@@ -3,6 +3,7 @@ import { IUnidadMedida } from '../Interfaces/iunidadmedida';
 import { RouterLink } from '@angular/router';
 import { SharedModule } from '../theme/shared/shared.module';
 import { UnidadmedidaService } from '../Services/unidadmedida.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-unidadmedida',
@@ -15,11 +16,38 @@ export class UnidadmedidaComponent implements OnInit {
   listaunidades: IUnidadMedida[] = [];
 
   constructor(private unidadServicio: UnidadmedidaService) {}
+  
   ngOnInit(): void {
-    this.unidadServicio.todos().subscribe((data) => {
-      this.listaunidades = data;
-    });
+    this.cargaproductos();
   }
 
-  eliminar(idUnidad_Medida: number) {}
+  cargaproductos() {
+    this.unidadServicio.todos().subscribe((data) => {
+      this.listaunidades = data;
+      console.log(data);
+    });
+  }
+  trackByFn() {}
+
+  eliminar(idUnidad_Medida: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción eliminará la unidad de medida',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.unidadServicio.eliminar(idUnidad_Medida).subscribe((data) => {
+          this.cargaproductos();
+        });
+        Swal.fire('Eliminado', 'El producto ha sido eliminado', 'success');
+      } else {
+        Swal.fire('Error', 'Ocurrio un erro', 'error');
+      }
+    });
+  }
 }
