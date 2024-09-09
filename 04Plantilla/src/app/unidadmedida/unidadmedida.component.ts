@@ -16,16 +16,15 @@ export class UnidadmedidaComponent implements OnInit {
   listaunidades: IUnidadMedida[] = [];
 
   constructor(private unidadServicio: UnidadmedidaService) {}
-  
   ngOnInit(): void {
-    this.cargaproductos();
+    this.listarUnidades();
   }
 
-  cargaproductos() {
-    this.unidadServicio.todos().subscribe((data) => {
+  listarUnidades() {
+    this.unidadServicio.todos().subscribe(data => {
       this.listaunidades = data;
       console.log(data);
-    });
+    })
   }
   trackByFn() {}
 
@@ -39,15 +38,15 @@ export class UnidadmedidaComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.unidadServicio.eliminar(idUnidad_Medida).subscribe((data) => {
-          this.cargaproductos();
+    }).then( result => {
+      if(result.isConfirmed) {
+        this.unidadServicio.eliminar(idUnidad_Medida).subscribe(data => {
+          this.listarUnidades();
         });
-        Swal.fire('Eliminado', 'El producto ha sido eliminado', 'success');
+        Swal.fire('Eliminado', 'La unidad de medida ha sido eliminada', 'success');
       } else {
-        Swal.fire('Error', 'Ocurrio un erro', 'error');
+        Swal.fire('Error', 'Ocurrio un error', 'error');
       }
-    });
+    })
   }
 }

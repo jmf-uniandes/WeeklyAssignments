@@ -25,7 +25,10 @@
                     <td>{{ cliente.Nombres }}</td>
                     <td>{{ cliente.Correo }}</td>
                     <td>
-                      <button type="button" class="btn btn-outline-success" [routerLink]="['/editarcliente/', cliente.idClientes]">
+                      <button
+                      type="button"
+                      class="btn btn-outline-success"
+                      [routerLink]="['/editarcliente/', cliente.idClientes]">
                         Editar
                       </button>
                       <button (click)="eliminar(cliente.idClientes)" type="button" class="btn btn-outline-danger">Eliminar</button>

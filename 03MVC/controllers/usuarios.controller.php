@@ -30,6 +30,8 @@ switch ($_GET["op"]) {
         echo json_encode($res);
         break;
     case 'insertar':
+        echo md5('1234');
+        return;
         if (!isset($_POST["Nombre_Usuario"]) || !isset($_POST["Contrasenia"]) || !isset($_POST["Estado"]) || !isset($_POST["Roles_idRoles"])) {
             echo json_encode(["error" => "Missing required parameters."]);
             exit();
