@@ -4,14 +4,13 @@ header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Conte
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 $method = $_SERVER["REQUEST_METHOD"];
-if ($method == "OPTIONS") {
-    die();
-}
+if ($method == "OPTIONS") {die();}
+
 include_once('../models/iva.model.php');
 error_reporting(0);
 $iva = new Iva();
 switch ($_GET["op"]) {
-    // Listar todos ivas
+    // List all records of IVA created
     case 'todos':
         $datos = array();
         $datos = $iva->todos();
