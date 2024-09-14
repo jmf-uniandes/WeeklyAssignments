@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NuevoproveedorComponent } from './proveedores/nuevoproveedor/nuevoproveedor.component';
 import LoginComponent from './demo/authentication/login/login.component';
 import { DefaultComponent } from './demo/default/dashboard/dashboard.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +26,8 @@ import { DefaultComponent } from './demo/default/dashboard/dashboard.component';
     NuevoproveedorComponent,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   bootstrap: [AppComponent]
 })

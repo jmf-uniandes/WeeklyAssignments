@@ -8,23 +8,30 @@ class Producto
     {
         $con = new ClaseConectar();
         $con = $con->ProcedimientoParaConectar();
-        $cadena = "SELECT p.idProductos, 
-       p.Codigo_Barras, 
-       p.Nombre_Producto, 
-       p.Graba_IVA, 
-       u.Detalle as Unidad_Medida, 
-       i.Detalle as IVA_Detalle, 
-       k.Cantidad, 
-       k.Fecha_Transaccion, 
-       k.Valor_Compra, 
-       k.Valor_Venta, 
-       k.Tipo_Transaccion
-FROM `Productos` p
-INNER JOIN `Unidad_Medida` u ON p.idProductos = u.idUnidad_Medida
-INNER JOIN `IVA` i ON p.Graba_IVA = i.idIVA
-INNER JOIN `Kardex` k ON p.idProductos = k.Productos_idProductos
-where k.`Estado` = 1
-";
+        $cadena = "SELECT
+                p.idProductos,
+                p.Codigo_Barras,
+                p.Nombre_Producto,
+                p.Graba_IVA,
+                u.Detalle AS Unidad_Medida,
+                i.Detalle AS IVA_Detalle,
+                k.Cantidad,
+                k.Fecha_Transaccion,
+                k.Valor_Compra,
+                k.Valor_Venta,
+                k.Tipo_Transaccion,
+                k.idKardex
+            FROM
+                `Productos` p
+            INNER JOIN `Kardex` k ON
+                p.idProductos = k.Productos_idProductos
+            INNER JOIN `Unidad_Medida` u ON
+                k.Unidad_Medida_idUnidad_Medida = u.idUnidad_Medida
+            INNER JOIN `IVA` i ON
+                k.IVA_idIVA = i.idIVA
+            WHERE
+                k.`Estado` = 1;
+        ";
         $datos = mysqli_query($con, $cadena);
         $con->close();
         return $datos;
@@ -34,11 +41,34 @@ where k.`Estado` = 1
     {
         $con = new ClaseConectar();
         $con = $con->ProcedimientoParaConectar();
-        $cadena = "SELECT p.*, u.Detalle as Unidad_Medida, i.Detalle as IVA_Detalle 
-                   FROM `Productos` p 
-                   INNER JOIN Unidad_Medida u ON p.idProductos = u.idUnidad_Medida 
-                   INNER JOIN IVA i ON p.Graba_IVA = i.idIVA 
-                   WHERE p.idProductos = $idProductos";
+        $cadena = "SELECT
+            p.idProductos,
+            p.Codigo_Barras,
+            p.Nombre_Producto,
+            p.Graba_IVA,
+            u.idUnidad_Medida AS Unidad_Medida_idUnidad_Medida,
+            u.Detalle AS Unidad_Medida,
+            i.idIVA AS IVA_idIVA,
+            i.Detalle AS IVA_Detalle,
+            k.Cantidad,
+            k.Fecha_Transaccion,
+            k.Valor_Compra,
+            k.Valor_Venta,
+            k.Tipo_Transaccion,
+            k.Proveedores_idProveedores,
+            k.idKardex
+         FROM
+            `Productos` p
+        INNER JOIN `Kardex` k ON
+            p.idProductos = k.Productos_idProductos
+        INNER JOIN `Unidad_Medida` u ON
+            k.Unidad_Medida_idUnidad_Medida = u.idUnidad_Medida
+        INNER JOIN `IVA` i ON
+            k.IVA_idIVA = i.idIVA
+        WHERE
+            k.`Estado` = 1
+            and p.idProductos=$idProductos
+            AND k.idKardex =$idKardex"";
         $datos = mysqli_query($con, $cadena);
         $con->close();
         return $datos;
