@@ -48,7 +48,7 @@ export class NuevoproductoComponent implements OnInit {
     // Cargar datos si es edición
     this.idProductos = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     if (this.idProductos > 0) {
-      this.titulo = 'Actualizar Producto';
+      this.titulo = 'Actualizar Producto '+this.idProductos;
       this.productoServicio.uno(this.idProductos).subscribe((producto) => {
         this.frm_Producto.patchValue({
           Codigo_Barras: producto.Codigo_Barras,
@@ -66,6 +66,8 @@ export class NuevoproductoComponent implements OnInit {
         this.seleccionarValoresRelacionados(producto);
       });
     }
+    else{this.idProductos = 0;}
+
   }
 
   crearFormulario() {
