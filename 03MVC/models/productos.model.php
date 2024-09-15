@@ -9,28 +9,28 @@ class Producto
         $con = new ClaseConectar();
         $con = $con->ProcedimientoParaConectar();
         $cadena = "SELECT
-                p.idProductos,
-                p.Codigo_Barras,
-                p.Nombre_Producto,
-                p.Graba_IVA,
-                u.Detalle AS Unidad_Medida,
-                i.Detalle AS IVA_Detalle,
-                k.Cantidad,
-                k.Fecha_Transaccion,
-                k.Valor_Compra,
-                k.Valor_Venta,
-                k.Tipo_Transaccion,
-                k.idKardex
-            FROM
-                `Productos` p
-            INNER JOIN `Kardex` k ON
-                p.idProductos = k.Productos_idProductos
-            INNER JOIN `Unidad_Medida` u ON
-                k.Unidad_Medida_idUnidad_Medida = u.idUnidad_Medida
-            INNER JOIN `IVA` i ON
-                k.IVA_idIVA = i.idIVA
-            WHERE
-                k.`Estado` = 1;
+            p.idProductos,
+            p.Codigo_Barras,
+            p.Nombre_Producto,
+            p.Graba_IVA,
+            u.Detalle AS Unidad_Medida,
+            i.Detalle AS IVA_Detalle,
+            k.Cantidad,
+            k.Fecha_Transaccion,
+            k.Valor_Compra,
+            k.Valor_Venta,
+            k.Tipo_Transaccion,
+            k.idKardex
+        FROM
+            `Productos` p
+        INNER JOIN `Kardex` k ON
+            p.idProductos = k.Productos_idProductos
+        INNER JOIN `Unidad_Medida` u ON
+            k.Unidad_Medida_idUnidad_Medida = u.idUnidad_Medida
+        INNER JOIN `IVA` i ON
+            k.IVA_idIVA = i.idIVA
+        WHERE
+            k.`Estado` = 1
         ";
         $datos = mysqli_query($con, $cadena);
         $con->close();
